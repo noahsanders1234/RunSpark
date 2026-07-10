@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -278,10 +279,11 @@
     }
 
     if (valid) {
-      // This is where we'll connect to a real backend later.
-      // For now, this just confirms the form works.
-      alert('Account created! (This is a placeholder — we\'ll connect this to a real database soon.)');
-      form.reset();
+      // No real backend yet, so we save login state right in the browser.
+      // Later, this will be replaced with a real account created on a server.
+      localStorage.setItem('runspark_loggedIn', 'true');
+      localStorage.setItem('runspark_name', name.value.trim());
+      window.location.href = 'dashboard.html';
     }
   });
 </script>
