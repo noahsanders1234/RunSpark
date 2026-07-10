@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,7 +17,7 @@
         <a href="#">Features</a>
         <a href="#">Clubs</a>
         <a href="#">Premium</a>
-        <a href="signup.html">Sign In</a>
+        <a href="login.html">Sign In</a>
     </nav>
 </header>
 
@@ -32,6 +33,13 @@
     <a href="signup.html"><button>Get Started</button></a>
 
 </section>
+
+<script>
+    // If someone already logged in before, skip straight to the dashboard.
+    if (localStorage.getItem('runspark_loggedIn') === 'true') {
+        window.location.href = 'dashboard.html';
+    }
+</script>
 
 </body>
 </html>
