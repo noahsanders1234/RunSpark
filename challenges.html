@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Challenges — RunSpark</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --white: #ffffff;
+    --sky: #eaf6ff;
+    --blue: #4fb8f0;
+    --blue-dark: #2196d6;
+    --navy: #1a2b3c;
+    --gray: #6b7a8d;
+    --green: #34b76b;
+    --orange: #ff8a3d;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--sky);
+    color: var(--navy);
+    min-height: 100vh;
+  }
+
+  header {
+    background: var(--white);
+    padding: 14px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    flex-wrap: wrap;
+    box-shadow: 0 2px 10px rgba(79, 184, 240, 0.1);
+  }
+
+  nav { display: flex; align-items: center; gap: 22px; flex-wrap: wrap; }
+  .logo img { height: 34px; width: auto; }
+  nav a { text-decoration: none; color: var(--navy); font-weight: 600; font-size: 14px; }
+  nav a:hover { color: var(--blue-dark); }
+  nav a.active { color: var(--blue-dark); }
+
+  .header-right { display: flex; align-items: center; gap: 16px; }
+  .greeting { font-size: 14px; color: var(--gray); }
+
+  .logout-btn {
+    background: none;
+    border: 2px solid var(--blue);
+    color: var(--blue-dark);
+    padding: 7px 14px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 13px;
+    cursor: pointer;
+  }
+  .logout-btn:hover { background: var(--sky); }
+
+  main {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 28px 20px 60px;
+  }
+
+  .page-title {
+    font-family: 'Poppins', sans-serif;
+    font-size: 26px;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+
+  .page-subtitle {
+    color: var(--gray);
+    margin-bottom: 28px;
+    font-size: 14px;
+  }
+
+  .section { margin-bottom: 36px; }
+
+  .section h2 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 14px;
+  }
+
+  .section-sub {
+    font-size: 13px;
+    color: var(--gray);
+    margin-top: -10px;
+    margin-bottom: 16px;
+  }
+
+  .placeholder-card {
+    background: var(--white);
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: 0 6px 20px rgba(79, 184, 240, 0.12);
+    color: var(--gray);
+    font-size: 14px;
+    text-align: center;
+  }
+
+  .challenge-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 16px;
+  }
+
+  .challenge-card {
+    background: var(--white);
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 6px 20px rgba(79, 184, 240, 0.12);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .challenge-top {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .challenge-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, var(--blue), var(--blue-dark));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+  }
+
+  .challenge-name {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    font-size: 15px;
+  }
+
+  .challenge-tag {
+    font-size: 11px;
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: 6px;
+    text-transform: uppercase;
+    background: var(--sky);
+    color: var(--blue-dark);
+    display: inline-block;
+    width: fit-content;
+  }
+
+  .challenge-desc {
+    font-size: 13px;
+    color: var(--gray);
+  }
+
+  .progress-bar-track {
+    background: var(--sky);
+    border-radius: 8px;
+    height: 10px;
+    overflow: hidden;
+  }
+
+  .progress-bar-fill {
+    background: linear-gradient(90deg, var(--blue), var(--blue-dark));
+    height: 100%;
+    border-radius: 8px;
+  }
+
+  .progress-label {
+    font-size: 12px;
+    color: var(--gray);
+  }
+
+  .join-btn {
+    margin-top: auto;
+    border: none;
+    background: linear-gradient(135deg, var(--blue), var(--blue-dark));
+    color: var(--white);
+    font-weight: 700;
+    font-size: 13px;
+    padding: 9px;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+  .join-btn:hover { box-shadow: 0 6px 16px rgba(79, 184, 240, 0.35); }
+
+  /* Automatic badges */
+  .badge-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 14px;
+  }
+
+  .badge-info-card {
+    background: var(--white);
+    border-radius: 16px;
+    padding: 18px;
+    box-shadow: 0 6px 20px rgba(79, 184, 240, 0.12);
+    text-align: center;
+  }
+
+  .badge-info-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: #dfeefb;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    margin: 0 auto 10px;
+  }
+
+  .badge-info-name {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+    margin-bottom: 4px;
+  }
+
+  .badge-info-desc {
+    font-size: 12px;
+    color: var(--gray);
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">
+    <img src="images/runspark-logo.png" alt="RunSpark logo">
+  </div>
+
+  <nav>
+    <a href="dashboard.html">Dashboard</a>
+    <a href="clubs.html">Clubs</a>
+    <a href="challenges.html" class="active">Challenges</a>
+    <a href="coming-soon.html">Profile</a>
+    <a href="coming-soon.html">Premium</a>
+    <a href="coming-soon.html">Settings</a>
+  </nav>
+
+  <div class="header-right">
+    <span class="greeting" id="greeting">Welcome back!</span>
+    <button class="logout-btn" id="logoutBtn">Log out</button>
+  </div>
+</header>
+
+<main>
+  <div class="page-title">Challenges</div>
+  <div class="page-subtitle">Join a challenge to stay motivated, or just keep running and earn badges automatically.</div>
+
+  <div class="section">
+    <h2>My Challenges</h2>
+    <div class="placeholder-card">You haven't joined any challenges yet. Browse some below to get started!</div>
+  </div>
+
+  <div class="section">
+    <h2>Joinable Challenges</h2>
+    <div class="section-sub">Set a goal and track your progress toward it.</div>
+    <div class="challenge-grid">
+
+      <div class="challenge-card">
+        <div class="challenge-top">
+          <div class="challenge-icon">📅</div>
+          <div>
+            <div class="challenge-name">Weekly Warrior</div>
+            <span class="challenge-tag">Weekly</span>
+          </div>
+        </div>
+        <div class="challenge-desc">Run 10 miles this week.</div>
+        <div class="progress-bar-track"><div class="progress-bar-fill" style="width: 0%;"></div></div>
+        <div class="progress-label">0 / 10 miles</div>
+        <button class="join-btn">Join Challenge</button>
+      </div>
+
+      <div class="challenge-card">
+        <div class="challenge-top">
+          <div class="challenge-icon">🗓️</div>
+          <div>
+            <div class="challenge-name">Monthly Momentum</div>
+            <span class="challenge-tag">Monthly</span>
+          </div>
+        </div>
+        <div class="challenge-desc">Run 40 miles this month.</div>
+        <div class="progress-bar-track"><div class="progress-bar-fill" style="width: 0%;"></div></div>
+        <div class="progress-label">0 / 40 miles</div>
+        <button class="join-btn">Join Challenge</button>
+      </div>
+
+      <div class="challenge-card">
+        <div class="challenge-top">
+          <div class="challenge-icon">☀️</div>
+          <div>
+            <div class="challenge-name">Summer Spark</div>
+            <span class="challenge-tag">Seasonal</span>
+          </div>
+        </div>
+        <div class="challenge-desc">Run 100 miles before school starts.</div>
+        <div class="progress-bar-track"><div class="progress-bar-fill" style="width: 0%;"></div></div>
+        <div class="progress-label">0 / 100 miles</div>
+        <button class="join-btn">Join Challenge</button>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Automatic Badges</h2>
+    <div class="section-sub">These badges are earned automatically just from running — no need to join anything.</div>
+    <div class="badge-grid">
+      <div class="badge-info-card">
+        <div class="badge-info-icon">🏁</div>
+        <div class="badge-info-name">First Race</div>
+        <div class="badge-info-desc">Complete your first official race</div>
+      </div>
+      <div class="badge-info-card">
+        <div class="badge-info-icon">🔥</div>
+        <div class="badge-info-name">Streaks</div>
+        <div class="badge-info-desc">Run several days or weeks in a row</div>
+      </div>
+      <div class="badge-info-card">
+        <div class="badge-info-icon">🏆</div>
+        <div class="badge-info-name">Milestones</div>
+        <div class="badge-info-desc">Hit big lifetime mile markers</div>
+      </div>
+      <div class="badge-info-card">
+        <div class="badge-info-icon">⭐</div>
+        <div class="badge-info-name">Lifetime Miles</div>
+        <div class="badge-info-desc">Total distance run over time</div>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<script>
+  const isLoggedIn = localStorage.getItem('runspark_loggedIn') === 'true';
+  if (!isLoggedIn) {
+    window.location.href = 'login.html';
+  }
+
+  const name = localStorage.getItem('runspark_name');
+  if (name) {
+    document.getElementById('greeting').textContent = 'Hi, ' + name;
+  }
+
+  document.getElementById('logoutBtn').addEventListener('click', function () {
+    localStorage.removeItem('runspark_loggedIn');
+    localStorage.removeItem('runspark_name');
+    window.location.href = 'index.html';
+  });
+
+  document.querySelectorAll('.join-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      alert('Joining challenges will work once we connect a real backend. For now, this is just a preview!');
+    });
+  });
+</script>
+
+</body>
+</html>
