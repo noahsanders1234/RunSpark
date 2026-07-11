@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Clubs — RunSpark</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --white: #ffffff;
+    --sky: #eaf6ff;
+    --blue: #4fb8f0;
+    --blue-dark: #2196d6;
+    --navy: #1a2b3c;
+    --gray: #6b7a8d;
+    --green: #34b76b;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--sky);
+    color: var(--navy);
+    min-height: 100vh;
+  }
+
+  header {
+    background: var(--white);
+    padding: 14px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    flex-wrap: wrap;
+    box-shadow: 0 2px 10px rgba(79, 184, 240, 0.1);
+  }
+
+  .logo img {
+    height: 34px;
+    width: auto;
+  }
+
+  nav {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+    flex-wrap: wrap;
+  }
+
+  nav a {
+    text-decoration: none;
+    color: var(--navy);
+    font-weight: 600;
+    font-size: 14px;
+  }
+
+  nav a:hover { color: var(--blue-dark); }
+  nav a.active { color: var(--blue-dark); }
+
+  .header-right {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .greeting { font-size: 14px; color: var(--gray); }
+
+  .logout-btn {
+    background: none;
+    border: 2px solid var(--blue);
+    color: var(--blue-dark);
+    padding: 7px 14px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 13px;
+    cursor: pointer;
+  }
+
+  .logout-btn:hover { background: var(--sky); }
+
+  main {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 28px 20px 60px;
+  }
+
+  .page-title {
+    font-family: 'Poppins', sans-serif;
+    font-size: 26px;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+
+  .page-subtitle {
+    color: var(--gray);
+    margin-bottom: 28px;
+    font-size: 14px;
+  }
+
+  .section {
+    margin-bottom: 36px;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 14px;
+  }
+
+  .section-header h2 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+  }
+
+  .placeholder-card {
+    background: var(--white);
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: 0 6px 20px rgba(79, 184, 240, 0.12);
+    color: var(--gray);
+    font-size: 14px;
+    text-align: center;
+  }
+
+  .club-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 16px;
+  }
+
+  .club-card {
+    background: var(--white);
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 6px 20px rgba(79, 184, 240, 0.12);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .club-card-top {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .club-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, var(--blue), var(--blue-dark));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+  }
+
+  .club-name {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    font-size: 15px;
+  }
+
+  .club-badges {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+
+  .club-badge {
+    font-size: 11px;
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+  }
+
+  .club-badge.official { background: #e6f0ff; color: var(--blue-dark); }
+  .club-badge.friends { background: #fff0e0; color: #c9781f; }
+  .club-badge.public { background: #e8f9ee; color: var(--green); }
+  .club-badge.private { background: #f1eefb; color: #7a58c9; }
+
+  .club-meta {
+    font-size: 13px;
+    color: var(--gray);
+  }
+
+  .join-btn {
+    margin-top: auto;
+    border: none;
+    background: linear-gradient(135deg, var(--blue), var(--blue-dark));
+    color: var(--white);
+    font-weight: 700;
+    font-size: 13px;
+    padding: 9px;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+
+  .join-btn:hover { box-shadow: 0 6px 16px rgba(79, 184, 240, 0.35); }
+
+  .join-btn.locked {
+    background: var(--sky);
+    color: var(--gray);
+    cursor: not-allowed;
+  }
+
+  /* Create a Club form */
+  .create-form {
+    background: var(--white);
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: 0 6px 20px rgba(79, 184, 240, 0.12);
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .form-row {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .form-group {
+    flex: 1;
+    min-width: 200px;
+  }
+
+  label {
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 6px;
+    display: block;
+  }
+
+  input[type="text"], select {
+    width: 100%;
+    padding: 11px 12px;
+    border: 2px solid #dfeefb;
+    border-radius: 10px;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    background: var(--sky);
+    color: var(--navy);
+  }
+
+  input[type="text"]:focus, select:focus {
+    outline: none;
+    border-color: var(--blue);
+    background: var(--white);
+  }
+
+  .visibility-options {
+    display: flex;
+    gap: 12px;
+  }
+
+  .visibility-option {
+    flex: 1;
+    border: 2px solid #dfeefb;
+    border-radius: 10px;
+    padding: 12px;
+    text-align: center;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--gray);
+  }
+
+  .visibility-option.selected {
+    border-color: var(--blue);
+    background: var(--sky);
+    color: var(--blue-dark);
+  }
+
+  .create-btn {
+    border: none;
+    background: linear-gradient(135deg, var(--blue), var(--blue-dark));
+    color: var(--white);
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    font-size: 15px;
+    padding: 13px;
+    border-radius: 10px;
+    cursor: pointer;
+  }
+
+  .create-btn:hover { box-shadow: 0 6px 18px rgba(79, 184, 240, 0.4); }
+
+  .note {
+    font-size: 12px;
+    color: var(--gray);
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">
+    <img src="images/runspark-logo.png" alt="RunSpark logo">
+  </div>
+
+  <nav>
+    <a href="dashboard.html">Dashboard</a>
+    <a href="clubs.html" class="active">Clubs</a>
+    <a href="coming-soon.html">Challenges</a>
+    <a href="coming-soon.html">Profile</a>
+    <a href="coming-soon.html">Premium</a>
+    <a href="coming-soon.html">Settings</a>
+  </nav>
+
+  <div class="header-right">
+    <span class="greeting" id="greeting">Welcome back!</span>
+    <button class="logout-btn" id="logoutBtn">Log out</button>
+  </div>
+</header>
+
+<main>
+  <div class="page-title">Clubs</div>
+  <div class="page-subtitle">Join a club, discover new ones nearby, or start your own.</div>
+
+  <div class="section">
+    <div class="section-header">
+      <h2>My Clubs</h2>
+    </div>
+    <div class="placeholder-card">You're not in a club yet. Join one below, or create your own!</div>
+  </div>
+
+  <div class="section">
+    <div class="section-header">
+      <h2>Discover Clubs</h2>
+    </div>
+    <div class="club-grid">
+
+      <div class="club-card">
+        <div class="club-card-top">
+          <div class="club-icon">🏫</div>
+          <div>
+            <div class="club-name">Lakeshore Middle School</div>
+            <div class="club-badges">
+              <span class="club-badge official">Official</span>
+              <span class="club-badge public">Public</span>
+            </div>
+          </div>
+        </div>
+        <div class="club-meta">142 members · Coach-led</div>
+        <button class="join-btn">Join Club</button>
+      </div>
+
+      <div class="club-card">
+        <div class="club-card-top">
+          <div class="club-icon">⚡</div>
+          <div>
+            <div class="club-name">Thunder Track Club</div>
+            <div class="club-badges">
+              <span class="club-badge official">Official</span>
+              <span class="club-badge public">Public</span>
+            </div>
+          </div>
+        </div>
+        <div class="club-meta">89 members · Youth running org</div>
+        <button class="join-btn">Join Club</button>
+      </div>
+
+      <div class="club-card">
+        <div class="club-card-top">
+          <div class="club-icon">👟</div>
+          <div>
+            <div class="club-name">Neighborhood Milers</div>
+            <div class="club-badges">
+              <span class="club-badge friends">Friends</span>
+              <span class="club-badge public">Public</span>
+            </div>
+          </div>
+        </div>
+        <div class="club-meta">12 members · Casual runners</div>
+        <button class="join-btn">Join Club</button>
+      </div>
+
+      <div class="club-card">
+        <div class="club-card-top">
+          <div class="club-icon">🔒</div>
+          <div>
+            <div class="club-name">Sanders Family Squad</div>
+            <div class="club-badges">
+              <span class="club-badge friends">Friends</span>
+              <span class="club-badge private">Private</span>
+            </div>
+          </div>
+        </div>
+        <div class="club-meta">5 members · Invite only</div>
+        <button class="join-btn locked" disabled>Invite Required</button>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header">
+      <h2>Create a Club</h2>
+    </div>
+
+    <form class="create-form" id="createClubForm">
+      <div class="form-row">
+        <div class="form-group">
+          <label for="clubName">Club name</label>
+          <input type="text" id="clubName" placeholder="e.g. Riverside Runners" required>
+        </div>
+        <div class="form-group">
+          <label for="clubType">Club type</label>
+          <select id="clubType">
+            <option value="friends">Friends Club</option>
+            <option value="official">Official Club (school/coach/org)</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Visibility</label>
+        <div class="visibility-options">
+          <div class="visibility-option selected" data-value="public" id="publicOption">🌐 Public</div>
+          <div class="visibility-option" data-value="private" id="privateOption">🔒 Private (invite only)</div>
+        </div>
+      </div>
+
+      <button type="submit" class="create-btn">Create Club</button>
+      <div class="note">Under-13 members always need parent approval and an invite to join any club, regardless of these settings.</div>
+    </form>
+  </div>
+
+</main>
+
+<script>
+  const isLoggedIn = localStorage.getItem('runspark_loggedIn') === 'true';
+  if (!isLoggedIn) {
+    window.location.href = 'login.html';
+  }
+
+  const name = localStorage.getItem('runspark_name');
+  if (name) {
+    document.getElementById('greeting').textContent = 'Hi, ' + name;
+  }
+
+  document.getElementById('logoutBtn').addEventListener('click', function () {
+    localStorage.removeItem('runspark_loggedIn');
+    localStorage.removeItem('runspark_name');
+    window.location.href = 'index.html';
+  });
+
+  // Join buttons (placeholder behavior — no backend yet)
+  document.querySelectorAll('.join-btn:not(.locked)').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      alert('Joining clubs will work once we connect a real backend. For now, this is just a preview!');
+    });
+  });
+
+  // Visibility toggle
+  const publicOption = document.getElementById('publicOption');
+  const privateOption = document.getElementById('privateOption');
+  publicOption.addEventListener('click', function () {
+    publicOption.classList.add('selected');
+    privateOption.classList.remove('selected');
+  });
+  privateOption.addEventListener('click', function () {
+    privateOption.classList.add('selected');
+    publicOption.classList.remove('selected');
+  });
+
+  // Create club form (placeholder behavior)
+  document.getElementById('createClubForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+    const clubName = document.getElementById('clubName').value.trim();
+    if (!clubName) return;
+    alert('Creating "' + clubName + '"! (Placeholder — this will save for real once we connect a backend.)');
+    this.reset();
+    publicOption.classList.add('selected');
+    privateOption.classList.remove('selected');
+  });
+</script>
+
+</body>
+</html>
