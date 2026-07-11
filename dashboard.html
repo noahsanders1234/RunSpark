@@ -27,30 +27,16 @@
 
   header {
     background: var(--white);
-    padding: 16px 24px;
+    padding: 14px 24px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     box-shadow: 0 2px 10px rgba(79, 184, 240, 0.1);
   }
 
-  .logo {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-
-  .logo-mark {
-    width: 26px;
-    height: 26px;
-    border-radius: 50%;
-    background: radial-gradient(circle at 30% 30%, var(--blue), var(--blue-dark));
-  }
-
-  .logo-text {
-    font-family: 'Poppins', sans-serif;
-    font-weight: 800;
-    font-size: 18px;
+  .logo img {
+    height: 34px;
+    width: auto;
   }
 
   .header-right {
@@ -81,58 +67,147 @@
   }
 
   main {
-    max-width: 900px;
+    max-width: 960px;
     margin: 0 auto;
-    padding: 32px 20px 60px;
+    padding: 28px 20px 60px;
   }
 
-  .welcome h1 {
+  .athlete-card {
+    background: var(--white);
+    border-radius: 20px;
+    padding: 28px;
+    box-shadow: 0 8px 30px rgba(79, 184, 240, 0.15);
+    margin-bottom: 24px;
+  }
+
+  .athlete-top {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-bottom: 24px;
+  }
+
+  .avatar {
+    width: 84px;
+    height: 84px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--blue), var(--blue-dark));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--white);
     font-family: 'Poppins', sans-serif;
-    font-size: 26px;
+    font-weight: 800;
+    font-size: 30px;
+    flex-shrink: 0;
+    border: 3px solid var(--sky);
+  }
+
+  .athlete-info h2 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 22px;
     font-weight: 700;
+  }
+
+  .athlete-info .club {
+    color: var(--blue-dark);
+    font-weight: 600;
+    font-size: 14px;
+    margin-top: 4px;
+  }
+
+  .athlete-tags {
+    display: flex;
+    gap: 8px;
+    margin-top: 8px;
+    flex-wrap: wrap;
+  }
+
+  .tag {
+    background: var(--sky);
+    color: var(--gray);
+    font-size: 12px;
+    font-weight: 600;
+    padding: 5px 10px;
+    border-radius: 8px;
+  }
+
+  .highlight-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 14px;
+    margin-bottom: 20px;
+  }
+
+  .highlight-card {
+    background: var(--sky);
+    border-radius: 14px;
+    padding: 16px;
+  }
+
+  .highlight-card .h-label {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--gray);
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
     margin-bottom: 6px;
   }
 
-  .welcome p {
-    color: var(--gray);
-    margin-bottom: 28px;
+  .highlight-card .h-value {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    font-size: 16px;
   }
 
-  .grid {
+  .stats-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 16px;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 14px;
+    margin-bottom: 18px;
   }
 
-  .card {
-    background: var(--white);
-    border-radius: 16px;
-    padding: 22px;
-    box-shadow: 0 6px 20px rgba(79, 184, 240, 0.12);
+  .stat-card {
+    background: var(--sky);
+    border-radius: 14px;
+    padding: 18px;
+    text-align: center;
   }
 
-  .card .label {
-    font-size: 13px;
+  .stat-card .stat-label {
+    font-size: 12px;
     color: var(--gray);
     font-weight: 600;
-    margin-bottom: 8px;
-    text-transform: uppercase;
-    letter-spacing: 0.03em;
+    margin-bottom: 6px;
   }
 
-  .card .value {
+  .stat-card .stat-value {
     font-family: 'Poppins', sans-serif;
-    font-size: 28px;
+    font-size: 26px;
     font-weight: 800;
     color: var(--navy);
   }
 
-  .card .value.streak::after {
-    content: " 🔥";
+  .footer-stats {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding-top: 14px;
+    border-top: 1px solid var(--sky);
+    font-size: 13px;
+    color: var(--gray);
+  }
+
+  .footer-stats strong {
+    display: block;
+    color: var(--navy);
+    font-size: 14px;
   }
 
   .section {
-    margin-top: 36px;
+    margin-top: 28px;
   }
 
   .section h2 {
@@ -152,31 +227,26 @@
     text-align: center;
   }
 
-  .badges-row, .clubs-row {
+  .badges-row {
     display: flex;
     gap: 12px;
     flex-wrap: wrap;
   }
 
   .badge {
-    width: 64px;
-    height: 64px;
+    width: 60px;
+    height: 60px;
     border-radius: 50%;
-    background: linear-gradient(135deg, var(--blue), var(--blue-dark));
+    background: #dfeefb;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 24px;
-    box-shadow: 0 4px 12px rgba(79, 184, 240, 0.3);
-  }
-
-  .badge.locked {
-    background: #dfeefb;
+    font-size: 22px;
     opacity: 0.6;
   }
 
   @media (max-width: 480px) {
-    .welcome h1 { font-size: 22px; }
+    .athlete-info h2 { font-size: 19px; }
   }
 </style>
 </head>
@@ -184,8 +254,7 @@
 
 <header>
   <div class="logo">
-    <div class="logo-mark"></div>
-    <div class="logo-text">RunSpark</div>
+    <img src="images/runspark-logo.png" alt="RunSpark logo">
   </div>
   <div class="header-right">
     <span class="greeting" id="greeting">Welcome back!</span>
@@ -194,27 +263,59 @@
 </header>
 
 <main>
-  <div class="welcome">
-    <h1 id="welcomeHeading">Welcome back!</h1>
-    <p>Here's where your running story picks up.</p>
-  </div>
 
-  <div class="grid">
-    <div class="card">
-      <div class="label">Weekly miles</div>
-      <div class="value">0.0</div>
+  <div class="athlete-card">
+    <div class="athlete-top">
+      <div class="avatar" id="avatarInitials">AR</div>
+      <div class="athlete-info">
+        <h2 id="athleteName">Alex Runner</h2>
+        <div class="club">🏃 Thunder Track Club</div>
+        <div class="athlete-tags">
+          <span class="tag">📍 Your City</span>
+          <span class="tag">🎽 Runner</span>
+        </div>
+      </div>
     </div>
-    <div class="card">
-      <div class="label">Current streak</div>
-      <div class="value streak">0 days</div>
+
+    <div class="highlight-row">
+      <div class="highlight-card">
+        <div class="h-label">Latest badge</div>
+        <div class="h-value">⭐ Summer Runner</div>
+      </div>
+      <div class="highlight-card">
+        <div class="h-label">Run streak</div>
+        <div class="h-value">🔥 0 weeks — get started!</div>
+      </div>
+      <div class="highlight-card">
+        <div class="h-label">Badges earned</div>
+        <div class="h-value">🏅 0</div>
+      </div>
     </div>
-    <div class="card">
-      <div class="label">Lifetime miles</div>
-      <div class="value">0.0</div>
+
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-label">Total miles</div>
+        <div class="stat-value">0.0</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Total runs</div>
+        <div class="stat-value">0</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Run streak</div>
+        <div class="stat-value">0</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Longest streak</div>
+        <div class="stat-value">0</div>
+      </div>
     </div>
-    <div class="card">
-      <div class="label">Badges earned</div>
-      <div class="value">0</div>
+
+    <div class="footer-stats">
+      <div><strong>—</strong>Average distance</div>
+      <div><strong>—</strong>Favorite distance</div>
+      <div><strong>—</strong>Weekly goal</div>
+      <div><strong>—</strong>Region</div>
     </div>
   </div>
 
@@ -226,9 +327,9 @@
   <div class="section">
     <h2>Badges</h2>
     <div class="badges-row">
-      <div class="badge locked">🏅</div>
-      <div class="badge locked">🏅</div>
-      <div class="badge locked">🏅</div>
+      <div class="badge">🏅</div>
+      <div class="badge">🏅</div>
+      <div class="badge">🏅</div>
     </div>
   </div>
 
@@ -236,10 +337,10 @@
     <h2>Your clubs</h2>
     <div class="placeholder-card">You're not in a club yet. Once clubs are built, they'll show up here.</div>
   </div>
+
 </main>
 
 <script>
-  // Redirect back to login if no one is actually logged in.
   const isLoggedIn = localStorage.getItem('runspark_loggedIn') === 'true';
   if (!isLoggedIn) {
     window.location.href = 'login.html';
@@ -248,7 +349,10 @@
   const name = localStorage.getItem('runspark_name');
   if (name) {
     document.getElementById('greeting').textContent = 'Hi, ' + name;
-    document.getElementById('welcomeHeading').textContent = 'Welcome back, ' + name.split(' ')[0] + '!';
+    document.getElementById('athleteName').textContent = name;
+
+    const initials = name.trim().split(' ').map(function (n) { return n[0]; }).join('').slice(0, 2).toUpperCase();
+    document.getElementById('avatarInitials').textContent = initials;
   }
 
   document.getElementById('logoutBtn').addEventListener('click', function () {
