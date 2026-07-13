@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Settings — RunSpark</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --white: #ffffff;
+    --sky: #eaf6ff;
+    --blue: #4fb8f0;
+    --blue-dark: #2196d6;
+    --navy: #1a2b3c;
+    --gray: #6b7a8d;
+    --red: #e0554f;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--sky);
+    color: var(--navy);
+    min-height: 100vh;
+  }
+
+  header {
+    background: var(--white);
+    padding: 14px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    flex-wrap: wrap;
+    box-shadow: 0 2px 10px rgba(79, 184, 240, 0.1);
+  }
+
+  nav { display: flex; align-items: center; gap: 22px; flex-wrap: wrap; }
+  .logo img { height: 34px; width: auto; }
+  nav a { text-decoration: none; color: var(--navy); font-weight: 600; font-size: 14px; }
+  nav a:hover { color: var(--blue-dark); }
+  nav a.active { color: var(--blue-dark); }
+
+  .header-right { display: flex; align-items: center; gap: 16px; }
+  .greeting { font-size: 14px; color: var(--gray); }
+
+  .logout-btn {
+    background: none;
+    border: 2px solid var(--blue);
+    color: var(--blue-dark);
+    padding: 7px 14px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 13px;
+    cursor: pointer;
+  }
+  .logout-btn:hover { background: var(--sky); }
+
+  main {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 28px 20px 60px;
+  }
+
+  .page-title {
+    font-family: 'Poppins', sans-serif;
+    font-size: 26px;
+    font-weight: 700;
+    margin-bottom: 28px;
+  }
+
+  .section { margin-bottom: 28px; }
+
+  .section h2 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 12px;
+  }
+
+  .card {
+    background: var(--white);
+    border-radius: 16px;
+    padding: 8px 22px;
+    box-shadow: 0 6px 20px rgba(79, 184, 240, 0.12);
+  }
+
+  .row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--sky);
+    gap: 16px;
+  }
+
+  .row:last-child { border-bottom: none; }
+
+  .row-text .r-title {
+    font-weight: 600;
+    font-size: 14px;
+  }
+
+  .row-text .r-desc {
+    font-size: 12px;
+    color: var(--gray);
+    margin-top: 2px;
+  }
+
+  .row-value {
+    font-size: 14px;
+    color: var(--gray);
+    white-space: nowrap;
+  }
+
+  .edit-link {
+    color: var(--blue-dark);
+    font-weight: 600;
+    font-size: 13px;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+
+  .edit-link:hover { text-decoration: underline; }
+
+  .toggle {
+    position: relative;
+    width: 46px;
+    height: 26px;
+    flex-shrink: 0;
+  }
+
+  .toggle input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+
+  .toggle-slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-color: #dfeefb;
+    border-radius: 26px;
+    transition: 0.2s;
+  }
+
+  .toggle-slider::before {
+    position: absolute;
+    content: "";
+    height: 20px;
+    width: 20px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    border-radius: 50%;
+    transition: 0.2s;
+  }
+
+  .toggle input:checked + .toggle-slider {
+    background-color: var(--blue);
+  }
+
+  .toggle input:checked + .toggle-slider::before {
+    transform: translateX(20px);
+  }
+
+  .safety-note {
+    background: var(--white);
+    border-radius: 16px;
+    padding: 18px 22px;
+    box-shadow: 0 6px 20px rgba(79, 184, 240, 0.12);
+    font-size: 13px;
+    color: var(--gray);
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+
+  .safety-note .icon { font-size: 20px; flex-shrink: 0; }
+
+  .danger-card {
+    background: var(--white);
+    border-radius: 16px;
+    padding: 8px 22px;
+    box-shadow: 0 6px 20px rgba(224, 85, 79, 0.1);
+    border: 1px solid #fbdedc;
+  }
+
+  .danger-btn {
+    background: none;
+    border: none;
+    color: var(--red);
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">
+    <img src="images/runspark-logo.png" alt="RunSpark logo">
+  </div>
+
+  <nav>
+    <a href="dashboard.html">Dashboard</a>
+    <a href="clubs.html">Clubs</a>
+    <a href="challenges.html">Challenges</a>
+    <a href="profile.html">Profile</a>
+    <a href="premium.html">Premium</a>
+    <a href="settings.html" class="active">Settings</a>
+  </nav>
+
+  <div class="header-right">
+    <span class="greeting" id="greeting">Welcome back!</span>
+    <button class="logout-btn" id="logoutBtn">Log out</button>
+  </div>
+</header>
+
+<main>
+  <div class="page-title">Settings</div>
+
+  <div class="section">
+    <h2>Account</h2>
+    <div class="card">
+      <div class="row">
+        <div class="row-text">
+          <div class="r-title">Name</div>
+        </div>
+        <div class="row-value" id="settingsName">Alex Runner</div>
+      </div>
+      <div class="row">
+        <div class="row-text">
+          <div class="r-title">Email</div>
+        </div>
+        <div class="row-value">you@example.com</div>
+      </div>
+      <div class="row">
+        <div class="row-text">
+          <div class="r-title">Password</div>
+        </div>
+        <a href="#" class="edit-link">Change password</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Notifications</h2>
+    <div class="card">
+      <div class="row">
+        <div class="row-text">
+          <div class="r-title">Challenge reminders</div>
+          <div class="r-desc">Get a nudge when you're close to a goal</div>
+        </div>
+        <label class="toggle">
+          <input type="checkbox" id="notif1" checked>
+          <span class="toggle-slider"></span>
+        </label>
+      </div>
+      <div class="row">
+        <div class="row-text">
+          <div class="r-title">Club announcements</div>
+          <div class="r-desc">Updates from clubs you've joined</div>
+        </div>
+        <label class="toggle">
+          <input type="checkbox" id="notif2" checked>
+          <span class="toggle-slider"></span>
+        </label>
+      </div>
+      <div class="row">
+        <div class="row-text">
+          <div class="r-title">Badge celebrations</div>
+          <div class="r-desc">Let us know when you earn something new</div>
+        </div>
+        <label class="toggle">
+          <input type="checkbox" id="notif3" checked>
+          <span class="toggle-slider"></span>
+        </label>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Privacy & Safety</h2>
+    <div class="safety-note">
+      <div class="icon">🔒</div>
+      <div>
+        Your run-time privacy and sharing settings live on your <a href="profile.html" style="color: var(--blue-dark); font-weight: 600;">Profile page</a>. Parents managing a child's account can adjust club invites, visibility, and approvals from there too.
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Danger Zone</h2>
+    <div class="danger-card">
+      <div class="row">
+        <div class="row-text">
+          <div class="r-title">Delete account</div>
+          <div class="r-desc">This will permanently remove your RunSpark data</div>
+        </div>
+        <button class="danger-btn" id="deleteBtn">Delete</button>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<script>
+  const isLoggedIn = localStorage.getItem('runspark_loggedIn') === 'true';
+  if (!isLoggedIn) {
+    window.location.href = 'login.html';
+  }
+
+  const name = localStorage.getItem('runspark_name');
+  if (name) {
+    document.getElementById('greeting').textContent = 'Hi, ' + name;
+    document.getElementById('settingsName').textContent = name;
+  }
+
+  document.getElementById('logoutBtn').addEventListener('click', function () {
+    localStorage.removeItem('runspark_loggedIn');
+    localStorage.removeItem('runspark_name');
+    window.location.href = 'index.html';
+  });
+
+  document.getElementById('deleteBtn').addEventListener('click', function () {
+    const sure = confirm('Are you sure? This is just a placeholder for now — no real account will be deleted, since there\'s no backend yet.');
+    if (sure) {
+      alert('Once we connect a real backend, this will permanently delete the account.');
+    }
+  });
+</script>
+
+</body>
+</html>
